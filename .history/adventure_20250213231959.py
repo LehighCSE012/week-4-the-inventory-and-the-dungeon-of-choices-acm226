@@ -90,7 +90,7 @@ def display_inventory(inventory):
             print(f"{i+1}. {item}")
 
 def enter_dungeon(player_health, inventory, dungeon_rooms):
-    """This section goes through the tuple
+    """This section goes through the tuple 
     of dungeon rooms and then outputs the player health and inventory"""
     for room_description, item, challenge_type, challenge_outcome in dungeon_rooms:
         print(room_description)
@@ -138,12 +138,12 @@ def enter_dungeon(player_health, inventory, dungeon_rooms):
 def main():
     """Main game loop"""
     dungeon_rooms = [
-    ("A dusty old library", "key", "puzzle",
+    ("A dusty old library", "key", "puzzle", 
      ("You solved the puzzle!", "The puzzle remains unsolved.", -5)),
-    ("A narrow passage with a creaky floor", "torch", "trap",
+    ("A narrow passage with a creaky floor", None, "trap", 
      ("You skillfully avoid the trap!", "You triggered a trap!", -10)),
     ("A grand hall with a shimmering pool", "healing potion", "none", None),
-    ("A small room with a locked chest", "treasure", "puzzle",
+    ("A small room with a locked chest", "treasure", "puzzle", 
      ("You cracked the code!", "The chest remains stubbornly locked.", -5))
 ]
     player_health = 100
