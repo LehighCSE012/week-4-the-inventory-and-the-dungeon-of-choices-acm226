@@ -63,7 +63,7 @@ def combat_encounter(player_health, monster_health, has_treasure):
         player_health = monster_attack(player_health)
         if player_health <= 0:
             print("You have been defeated!")
-            return None
+            return False
 
 def check_for_treasure(has_treasure):
     """Check if the player found the treasure
@@ -108,7 +108,7 @@ def enter_dungeon(player_health, inventory, dungeon_rooms):
                     print(challenge_outcome[0])
                 else:
                     print(challenge_outcome[1])
-                player_health += challenge_outcome[2]
+                player_health += challenge_outcome[2] 
 
         elif challenge_type == "trap":
             print("You see a potential trap!")
@@ -119,8 +119,8 @@ def enter_dungeon(player_health, inventory, dungeon_rooms):
                 if success:
                     print(challenge_outcome[0])
                 else:
-                    print(challenge_outcome[1])
-                player_health += challenge_outcome[2]
+                    print(challenge_outcome[1]) 
+                player_health += challenge_outcome[2] 
 
         elif challenge_type == "none":
             print("There doesn't seem to be a challenge in this room. You move on.")
@@ -151,12 +151,9 @@ def main():
 
     player_health = handle_path_choice(player_health)
 
-    if player_health > 0:
-        treasure_obtained_in_combat = combat_encounter(player_health, monster_health, has_treasure) #has_treasure is returned either true or false depending on if the monster had the treasure
-        if treasure_obtained_in_combat is not None:
-            check_for_treasure(treasure_obtained_in_combat)
-        if player_health > 0:
-            player_health, inventory = enter_dungeon(player_health, inventory, dungeon_rooms)
+    if player_health > 0:  # Only proceed if still alive
+        treasure_obtained_in_combat = combat_encounter(player_health, monster_health, has_treasure)
+        check_for_treasure(treasure_obtained_in_combat)
 
 if __name__ == "__main__":
     """Run the game"""

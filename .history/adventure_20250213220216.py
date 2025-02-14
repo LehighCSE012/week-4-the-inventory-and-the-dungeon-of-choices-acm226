@@ -63,7 +63,7 @@ def combat_encounter(player_health, monster_health, has_treasure):
         player_health = monster_attack(player_health)
         if player_health <= 0:
             print("You have been defeated!")
-            return None
+            return False
 
 def check_for_treasure(has_treasure):
     """Check if the player found the treasure
@@ -72,6 +72,7 @@ def check_for_treasure(has_treasure):
         print("You found the hidden treasure! You win!")
     else:
         print("The monster did not have the treasure. You continue your journey.")
+
 
 def acquire_item(inventory, item):
     """Add an item to the player's inventory"""
@@ -105,10 +106,10 @@ def enter_dungeon(player_health, inventory, dungeon_rooms):
             if choice == "solve":
                 success = random.choice([True, False])
                 if success:
-                    print(challenge_outcome[0])
+                    print(challenge_outcome[0])  # Success message
                 else:
-                    print(challenge_outcome[1])
-                player_health += challenge_outcome[2]
+                    print(challenge_outcome[1])  # Failure message
+                player_health += challenge_outcome[2]  # Health change
 
         elif challenge_type == "trap":
             print("You see a potential trap!")
@@ -117,10 +118,10 @@ def enter_dungeon(player_health, inventory, dungeon_rooms):
             if choice == "disarm":
                 success = random.choice([True, False])
                 if success:
-                    print(challenge_outcome[0])
+                    print(challenge_outcome[0])  # Success message
                 else:
-                    print(challenge_outcome[1])
-                player_health += challenge_outcome[2]
+                    print(challenge_outcome[1])  # Failure message
+                player_health += challenge_outcome[2]  # Health change
 
         elif challenge_type == "none":
             print("There doesn't seem to be a challenge in this room. You move on.")
@@ -134,6 +135,16 @@ def enter_dungeon(player_health, inventory, dungeon_rooms):
     print(f"You exited the dungeon with {player_health} health.")
     return player_health, inventory
 
+
+def display_inventory(inventory):
+    """Display the player's inventory"""
+    if not inventory:
+        print("Your inventory is empty.")
+    else:
+        print("Your inventory:")
+        for i, item in enumerate(inventory):
+            print(f"{i+1}. {item}")
+
 def main():
     """Main game loop"""
     dungeon_rooms = [
@@ -144,20 +155,17 @@ def main():
 ]
     player_health = 100
     monster_health = 70
-    inventory = []
     has_treasure = random.choice([True, False])
 
     display_player_status(player_health)
 
     player_health = handle_path_choice(player_health)
 
-    if player_health > 0:
-        treasure_obtained_in_combat = combat_encounter(player_health, monster_health, has_treasure) #has_treasure is returned either true or false depending on if the monster had the treasure
-        if treasure_obtained_in_combat is not None:
-            check_for_treasure(treasure_obtained_in_combat)
-        if player_health > 0:
-            player_health, inventory = enter_dungeon(player_health, inventory, dungeon_rooms)
+    if player_health > 0:  # Only proceed if still alive
+        treasure_obtained_in_combat = combat_encounter(player_health, monster_health, has_treasure)
+        check_for_treasure(treasure_obtained_in_combat)
 
 if __name__ == "__main__":
     """Run the game"""
+    inventory = []
     main()
