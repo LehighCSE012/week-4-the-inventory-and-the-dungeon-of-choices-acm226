@@ -97,7 +97,7 @@ def enter_dungeon(player_health, inventory, dungeon_rooms):
         print(room_description)
 
         if item:
-            print(f"You found a {item} in the room.!")
+            print(f"You found a {item}!")
             acquire_item(inventory, item)
 
         if challenge_type == "puzzle":
