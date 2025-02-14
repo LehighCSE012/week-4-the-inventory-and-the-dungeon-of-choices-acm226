@@ -156,7 +156,7 @@ def main():
     player_health = handle_path_choice(player_health)
 
     if player_health > 0:
-        treasure_obtained_in_combat = combat_encounter(player_health, monster_health, has_treasure)
+        treasure_obtained_in_combat = combat_encounter(player_health, monster_health, has_treasure) #has_treasure is returned either true or false depending on if the monster had the treasure
         if treasure_obtained_in_combat is not None:
             check_for_treasure(treasure_obtained_in_combat)
         if player_health > 0:
